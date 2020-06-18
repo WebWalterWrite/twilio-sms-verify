@@ -1,13 +1,25 @@
-import React from 'react';
-import './App.scss';
+import React from "react";
+import "./App.scss";
+import PhoneForm from "./components/PhoneForm";
 
 function App() {
+
   return (
-    <div className="App">
+    <>
       <header className="App-header">
-        <h1>TWILIO-SMS-VERIFY</h1>
+        <h1>TwilioSmsVerify</h1>
       </header>
-    </div>
+      <main>
+        <section>
+          <h2>
+            Un simple exemple d'utilisation d'une vérification par code via sms
+            avec le service VERIFY de twilio.
+          </h2>
+          <PhoneForm />
+        </section>
+      </main>
+      <footer></footer>
+    </>
   );
 }
 
