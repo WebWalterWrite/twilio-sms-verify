@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // url par défault
-const url = "http://localhost:4000"
+const url = "http://localhost:4000/api/verify"
 
 /**
  * @description - Envoi données au serveur
@@ -9,7 +9,10 @@ const url = "http://localhost:4000"
  * @param {object} data - Données à transmettre
  */
 export const postData = async (route, data) => {
-  const { result } = await axios.post(url+route, data);
+  //const { result } = await axios.post(url+route, data);
 
-  return result
+  const result = {status: 200};
+  
+  return result;
 };
+
