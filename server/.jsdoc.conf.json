@@ -18,5 +18,6 @@
   "templates": {
     "cleverLinks": false,
     "monospaceLinks": false
-  }
+  },
+  "title": "Twilio Sms Verify"
 }
