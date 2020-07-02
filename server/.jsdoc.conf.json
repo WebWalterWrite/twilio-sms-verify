@@ -4,7 +4,6 @@
   "opts": {
     "recurse": true,
     "destination": "./docs",
-    "mainpagetitle": "Twilio Sms Verify"
   },
   "source": {
     "include": ["src"],
@@ -18,6 +17,6 @@
   },
   "templates": {
     "cleverLinks": false,
-    "monospaceLinks": false,
+    "monospaceLinks": false
   }
 }
