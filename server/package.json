@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "twilio sms backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -r esm server.js",
+    "docs": "./node_modules/jsdoc/jsdoc.js -c ./.jsdoc.conf.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebWalterWrite/twilio-sms-verify.git"
+  },
+  "keywords": [
+    "twilio"
+  ],
+  "author": "samy codeofduty.dev webwalterwhrite",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WebWalterWrite/twilio-sms-verify/issues"
+  },
+  "homepage": "https://github.com/WebWalterWrite/twilio-sms-verify#readme",
+  "dependencies": {
+    "@sentry/node": "^5.18.1",
+    "body-parser": "^1.19.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "twilio": "^3.47.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "jsdoc": "^3.6.4",
+    "nodemon": "^2.0.4"
+  }
+}
