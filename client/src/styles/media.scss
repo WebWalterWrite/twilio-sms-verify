@@ -1,0 +1,30 @@
+@import 'breakpoints.scss';
+
+// phone
+@mixin phone {
+	@media (min-width: #{$phone-sm-min}) {
+		@content;
+	}
+}
+
+// tablet
+@mixin tablet {
+	@media (min-width: #{$phone-md-min}) {
+		@content;
+	}
+}
+
+// desktop
+@mixin lg {
+	@media (min-width: #{$desktop-lg-min}) {
+		@content;
+	}
+}
+
+// large desktop
+@mixin xl {
+	@media (min-width: #{$desktop-xl-min}) {
+		@content;
+	}
+}
+
