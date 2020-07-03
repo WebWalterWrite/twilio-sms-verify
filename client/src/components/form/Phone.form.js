@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import CodeForm from "./Code.form";
+import './form.scss';
+
 // Import api call
 import { postData } from "../../api/fetch";
 
@@ -14,6 +16,7 @@ const PhoneForm = ({ state }) => {
 
   const [error, setError] = useState(null);
   const [modal, setModal] = useState(false);
+  const [result, setResult ] = useState(false);
 
   /**
    * @description - Supprimer / Se déplacer
@@ -24,8 +27,8 @@ const PhoneForm = ({ state }) => {
     return keyCode === 8 && e.target.selectionEnd === 0
       ? target.previousSibling && target.previousSibling.focus() // Supprimer la saisie dans chaque input
       : keyCode === 37 && e.target.selectionEnd === 0
-      ? target.previousSibling && target.previousSibling.focus() // Revenir à l'input précédent à l'aide de la fleche du clavier
-      : target.value.length === 2 &&
+        ? target.previousSibling && target.previousSibling.focus() // Revenir à l'input précédent à l'aide de la fleche du clavier
+        : target.value.length === 2 &&
         target.nextSibling &&
         target.nextSibling.focus(); // Passer à l'input suivant
   };
@@ -33,6 +36,7 @@ const PhoneForm = ({ state }) => {
   // Envoyer le formulaire
   const sendForm = async (e) => {
     setModal(false);
+   
     e.preventDefault();
 
     const { status, error, data } = validForm(e);
@@ -40,8 +44,9 @@ const PhoneForm = ({ state }) => {
     if (!status) return setError(error);
 
     if (status) {
-      const { status: s } = await postData("/verifications", data);
-      return s === 200 && setModal(true);
+      setResult(true)
+      const result = await postData("/verifications", { phone: data });
+      return result && result == 200  && setModal(true);
     }
   };
 
@@ -59,17 +64,17 @@ const PhoneForm = ({ state }) => {
 
     return !phone.length
       ? {
-          status: false,
-          error: "Veuillez saisir votre numéro de téléphone",
-          data: null,
-        }
+        status: false,
+        error: "Veuillez saisir votre numéro de téléphone",
+        data: null,
+      }
       : !regex.test(phone)
-      ? {
+        ? {
           status: false,
           error: "Veuillez saisir un numéro de mobile valide",
           data: null,
         }
-      : { status: true, error: null, data: phone };
+        : { status: true, error: null, data: phone };
   };
 
   // MAJ de l'état de l'input
@@ -100,7 +105,10 @@ const PhoneForm = ({ state }) => {
             />
           ))}
           <div>
-            <input type="submit" value="Envoyer mon numéro" />
+            { !result 
+                ? <input type="submit" value="Envoyer le code" />
+                : <div className="pending-response"><span>Envoi en cours</span></div>
+            }
           </div>
           {error && <div className="input-error">{error}</div>}
         </form>
