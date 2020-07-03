@@ -76,6 +76,7 @@ const Modal = ({ data }) => {
           return (
             <input
               type="text"
+              inputMode="decimal"
               id="code"
               name={`digit${i + 1}`}
               value={number[`digit${i + 1}`]}
@@ -89,7 +90,7 @@ const Modal = ({ data }) => {
           <input type="submit" value="Vérifier le code" />
         </div>
         <div>
-          <span class="send-code-button">renvoyer le code</span>
+          <span className="send-code-button">renvoyer le code</span>
         </div>
         {error && <div className="input-error">{error}</div>}
       </form>
