@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import CodeForm from "./Code.form";
+// import styles & images
 import './form.scss';
+import mobile from '../../images/call.svg';
 
 // Import api call
 import { postData } from "../../api/fetch";
 
-const PhoneForm = ({ state }) => {
+const PhoneForm = () => {
   const [values, setValue] = useState({
     digit2: "",
     digit4: "",
@@ -15,8 +17,8 @@ const PhoneForm = ({ state }) => {
   });
 
   const [error, setError] = useState(null);
-  const [modal, setModal] = useState(false);
-  const [result, setResult ] = useState(false);
+  const [modal, setModal] = useState({visible: false, data: null});
+  const [loading, setLoading ] = useState(false);
 
   /**
    * @description - Supprimer / Se déplacer
@@ -44,9 +46,9 @@ const PhoneForm = ({ state }) => {
     if (!status) return setError(error);
 
     if (status) {
-      setResult(true)
+      setLoading(true);
       const result = await postData("/verifications", { phone: data });
-      return result && result == 200  && setModal(true);
+      return result === "pending" && setModal({visible:true, data: data});
     }
   };
 
@@ -85,17 +87,19 @@ const PhoneForm = ({ state }) => {
 
   return (
     <>
-      {modal && <CodeForm />}
+      {modal.visible && <CodeForm phone={modal.data} state={setModal} />}
       <section className="phone-form">
         <form noValidate onSubmit={sendForm}>
           <label htmlFor="tel">
             Saisissez votre N° de Mobile<sup className="info-bulle">i</sup>
             <span className="info-bulle-message">Au format 06 ou 07</span>
           </label>
+          <img src={mobile} alt="téléphone mobile" />
           {[...Array(5)].map((_, i) => (
             <input
               key={i}
               type="tel"
+              autoComplete="tel"
               id="tel"
               name={`digit${(i + 1) * 2}`}
               onKeyDown={nextInput}
@@ -105,10 +109,13 @@ const PhoneForm = ({ state }) => {
             />
           ))}
           <div>
-            { !result 
-                ? <input type="submit" value="Envoyer le code" />
-                : <div className="pending-response"><span>Envoi en cours</span></div>
-            }
+            {!loading ? (
+              <input type="submit" value="Envoyer le code" />
+            ) : (
+              <div className="pending-response">
+                <span>Envoi en cours</span>
+              </div>
+            )}
           </div>
           {error && <div className="input-error">{error}</div>}
         </form>

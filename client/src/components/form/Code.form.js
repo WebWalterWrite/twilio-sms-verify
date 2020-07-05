@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { postData } from "../../api/fetch";
 
 import "./form.scss";
+import mobile from "../../images/smartphone.svg";
 
-const Modal = ({ data }) => {
+const Modal = ({ phone, state }) => {
   const [number, setNumber] = useState({
     digit1: "",
     digit2: "",
@@ -17,7 +18,7 @@ const Modal = ({ data }) => {
   /**
    * @description - Supprimer / Se déplacer
    */
-  const nextInput = ({ key, keyCode, target }) => {
+  const nextInput = ({ keyCode, target }) => {
     return keyCode === 8 && target.selectionEnd === 0
       ? target.previousSibling && target.previousSibling.focus() // Supprimer la saisie dans chaque input
       : keyCode === 37 && target.selectionEnd === 0
@@ -38,15 +39,15 @@ const Modal = ({ data }) => {
 
     const { status, error, data } = validForm(e);
 
-    const result = status && (await postData("/checking", data));
+    const result =
+      status && (await postData("/checking", { code: data, phone: phone }));
 
-    return !status ? setError(error) : result;
+    return !status ? setError(error) : result === "approved" && state(false);
   };
 
   // Valider le formulaire
   const validForm = (e) => {
     setError(null);
-
 
     const data = new Map(new FormData(e.target));
     const code = Object.values(Object.fromEntries(data))
@@ -58,7 +59,7 @@ const Modal = ({ data }) => {
     return !isValid
       ? {
           status: false,
-          error: "Veuillez saisir votre code à 6 chiffres",
+          error: "Saissisez votre code à 6 chiffres",
           data: null,
         }
       : {
@@ -71,7 +72,8 @@ const Modal = ({ data }) => {
   return (
     <section className="modal">
       <form onSubmit={sendForm}>
-        <label htmlFor="code">Veuillez saisir le code envoyé par sms</label>
+        <label htmlFor="code">Saissisez le code reçu par sms</label>
+        <img src={mobile} alt="téléphone mobile" />
         {[...Array(6)].map((_, i) => {
           return (
             <input
