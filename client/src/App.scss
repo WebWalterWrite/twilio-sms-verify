@@ -3,14 +3,19 @@
   pointer-events: none;
 }
 
-.App-header {
+header,footer{
   min-height: 10vh;
-  display: flex;
-  font-size: calc(10px + 2vmin);
   padding: 0.5rem;
   background-color: #202429;
+  color: #ffffff;
+}
+header{
   h1 {
     color: #f3dd1a;
+    font-size: calc(16px + 4vmin);
+  }
+  p{
+    color: #ffffff;
   }
 }
 
