@@ -6,19 +6,30 @@ function App() {
 
   return (
     <>
-      <header className="App-header">
+      <header>
         <h1>TwilioSmsVerify</h1>
+          <p>
+            Un simple exemple d'utilisation d'une vérification par code via sms
+            avec le service VERIFY de twilio.
+          </p>
       </header>
       <main>
         <section>
-          <h2>
-            Un simple exemple d'utilisation d'une vérification par code via sms
-            avec le service VERIFY de twilio.
-          </h2>
           <PhoneForm />
         </section>
       </main>
-      <footer></footer>
+      <footer>
+        <div>
+          Icons made by{" "}
+          <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+            Freepik
+          </a>{" "}
+          from{" "}
+          <a href="https://www.flaticon.com/" title="Flaticon">
+            www.flaticon.com
+          </a>
+        </div>
+      </footer>
     </>
   );
 }
