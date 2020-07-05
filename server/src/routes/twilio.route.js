@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { phoneVerify } from '../controllers/twilio.controller';
+import { phoneVerify, codeVerify } from '../controllers/twilio.controller';
 
 const route = Router();
 
@@ -14,4 +14,5 @@ route.use((req, res, next)=>{
 
 route.post('/verifications', phoneVerify)
 
+route.post('/checking', codeVerify);
 export default route;
